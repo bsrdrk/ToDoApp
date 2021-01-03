@@ -1,0 +1,60 @@
+{%extends "layout.html" %}
+{%block title%}
+    Home
+{%endblock title%}
+{%block content%}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4"><center>TODO LİST</center></h1>
+      <p class="lead"><center>This is your todo list.</center></p>
+      <div class ="text-center">
+        <a role = 'button' href="{% url 'create'%}" class="btn btn-outline-success">Create TODO List</a>
+      </div>
+    </div>
+  </div>
+  <div class = "container" >
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ToDo Name</th>
+            <th scope="col">Is Finished?</th>
+            <th scope="col">Date</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+            <th scope="col">Content</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+            {%for todo in todo_list%} 
+            {%if todo.completed%}
+            
+          <tr>
+            <td><del>{{todo.title}}</del></td>
+            <td><a class="btn btn-outline-success" href ="{% url 'yes_finish' todo.id %}" role="button">Yes</a></td>
+            <td>{{todo.date}}</td>
+            <td><a class="btn btn-outline-danger" href ="{% url 'delete' todo.id %}" role="button">Delete</a></td>
+            <td><a class="btn btn-outline-warning" href ="{% url 'update' todo.id %}" role="button">Update</a></td>
+            <td><a class="btn btn-outline-warning" href ="{% url 'content' todo.id %}" role="button">Content</a></td>
+          </tr>
+          {%else %}
+          <tr>
+            <td>{{todo.title}}</td>
+            <td><a class="btn btn-outline-danger" href ="{% url 'no_finish' todo.id %}" role="button">No</a></td>
+            <td>{{todo.date}}</td>
+            <td><a class="btn btn-outline-danger" href ="{% url 'delete' todo.id %}" role="button">Delete</a></td>
+            <td><a class="btn btn-outline-warning" href ="{% url 'update' todo.id %}" role="button">Update</a></td>
+            <td><a class="btn btn-outline-warning" href ="{% url 'content' todo.id %}" role="button">Content</a></td>
+
+          </tr>
+
+          {%endif%} 
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+ 
+
+
+{%endblock content%}
